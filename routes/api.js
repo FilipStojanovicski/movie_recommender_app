@@ -30,7 +30,7 @@ router.get('/movies', (req, res, next) => {
     // res.send("API is working properly");
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
-            res.send(500,"Server Error"); 
+            next(error);
             return;
         }
         else {
@@ -50,7 +50,7 @@ router.get('/genres', (req, res, next) => {
     // res.send("API is working properly");
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
-            res.send(500,"Server Error"); 
+            next(error);
             return;
         }
         else {
