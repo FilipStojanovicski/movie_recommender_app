@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 const request = require('request');
 
-router.route('/')
+router.route('/:model')
     .post((req, res, next) => {
-        console.log("reached movie recommendation post route in js")
+        let model = req.params.model;
+        console.log(`http://localhost:5000/movie_recommendation/${model}`);
         console.log(req.body);
         let requestBody = {
-            url: 'http://localhost:5000/movie_recommendation',
+            url: `http://localhost:5000/movie_recommendation/${model}`,
             body: JSON.stringify(req.body),
             method: 'POST',
             headers: {
