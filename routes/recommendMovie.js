@@ -23,7 +23,7 @@ router.route('/:model')
             }
             else {
                 body = JSON.parse(body);
-                res.status(200).json(body);
+                res.status(body.status).json(body);
                 return;
             }
         })

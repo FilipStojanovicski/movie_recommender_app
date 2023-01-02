@@ -26,16 +26,22 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
+
 app.use('/api', APIrouter);
 app.use('/movie_recommendation', recommendMovieRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log("reached 404 middleware");
   next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log("reached error handler");
+  console.log(err.status);
+  console.log(err.message);
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
