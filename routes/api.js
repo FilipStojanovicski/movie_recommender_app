@@ -2,11 +2,15 @@ var express = require('express');
 var router = express.Router();
 var db = require('../database');
 
-// All other GET requests not handled before will return our React app
+// API that returns the movies from the database
 router.get('/movies', (req, res, next) => {
+
+
     let genre = req.query.genre;
     let limit = req.query.limit;
-    console.log(req.query);
+
+
+    // Get all the movies as well as their retings count and order by number of ratings
     let sql_statement = `
     SELECT * FROM movies LEFT JOIN (
         SELECT movieId, COUNT(*) AS num_ratings 
@@ -16,45 +20,63 @@ router.get('/movies', (req, res, next) => {
     ON movies.movieId = ratings_count.movieId
     ORDER BY num_ratings DESC
     `
-
+    
+    // Filter by genre if specified
     if (genre && genre !== 'null'){
         sql_statement += ` WHERE movieId IN ( SELECT mg.movieID FROM MOVIES_GENRES mg JOIN genres g ON mg.genreId = g.genreId WHERE genre_name = '${genre}') `
     }
     if (limit && limit !== 'null'){
         sql_statement += ` LIMIT ${limit} `
     }
-    
-    console.log(genre);
-    console.log(sql_statement);
 
-    // res.send("API is working properly");
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
+            console.log("Error in api/movies", error);
             next(error);
             return;
         }
         else {
-            // Respond with results as JSON
             res.send(results);
         }
       });
 });
 
 
-// All other GET requests not handled before will return our React app
+// API that returns the genres from the database
 router.get('/genres', (req, res, next) => {
     let sql_statement = "SELECT * FROM genres"
 
-    console.log(sql_statement);
-
-    // res.send("API is working properly");
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
+            console.log("Error in api/genres", error);
             next(error);
             return;
         }
         else {
-            // Respond with results as JSON
+            res.send(results);
+        }
+      });
+});
+
+// API that returns the poster_paths for movies from the database
+router.post('/movie_imgs', (req, res, next) => {
+
+
+    let sql_statement = "SELECT * FROM movie_imgs "
+
+    let movieIds = req.body.movieIds;
+
+    if (movieIds && movieIds !== 'null' && movieIds.length > 0){
+        sql_statement += ` WHERE movieId IN (${movieIds.join(',')}) `
+    }
+
+    db.getSQL(sql_statement, function(err, results) {
+        if(err) { 
+            console.log("Error in api/movie_imgs", error);
+            next(error);
+            return;
+        }
+        else {
             res.send(results);
         }
       });

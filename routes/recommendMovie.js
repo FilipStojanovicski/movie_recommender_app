@@ -4,9 +4,9 @@ const request = require('request');
 
 router.route('/:model')
     .post((req, res, next) => {
+
+        // Send request to the appropriate route depending on the model
         let model = req.params.model;
-        console.log(`http://localhost:5000/movie_recommendation/${model}`);
-        console.log(req.body);
         let requestBody = {
             url: `http://localhost:5000/movie_recommendation/${model}`,
             body: JSON.stringify(req.body),
@@ -17,20 +17,17 @@ router.route('/:model')
         }
         request(requestBody, (error, response, body) => {
             if (error) {
-                console.log(error);
+                console.log("Error in recommendmovies.js", error);
                 next(error);
                 return;
             }
             else {
+                // Pass along the response from the model back to the client
                 body = JSON.parse(body);
                 res.status(body.status).json(body);
                 return;
             }
         })
-    })
-    .get((req, res, next) => {
-        console.log("reached movie recommendation get route in js")
-        res.send("GET REQUEST RECEIVED");
     })
 
 module.exports = router;
