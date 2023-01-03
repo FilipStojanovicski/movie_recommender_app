@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="How the movie recommendation system works" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link href=' http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <title>Movie Recommendation Engine</title>
+</head>
+
+<body>
+  <main class="main">
+    <div class="how-it-works container">
+    <h1 class="title">How it Works</h1>
+    <div class="credits">
+      <p>Created by: Filip Stojanovic</p>
+      <div class="social-icons">
+      <a href="https://www.linkedin.com/in/filip-stojanovic-166382120" target = "_blank" class="social-icon">
+      <i class="uil uil-linkedin-alt"></i>
+      </a>
+      <a href="https://github.com/FilipStojanovicski" target = "_blank" class="social-icon">
+      <i class="uil uil-github-alt"></i>
+      </a>
+    </div>
+   </div>
+    <div class="intro text-container">
+      <h2>Intro</h2>
+      <p>Welcome to the Movie Recommendation Engine! The Movie Recommendation Engine is a recommender system that uses 
+        collaborative filtering to make predictions on user preferences. It takes the users who have liked similar movies 
+        combined with the movies that have been rated similarly to each other by users to learn the relationship between users and movies 
+        using machine learning algorithms. It then provides you an intelligent prediction on the best movies curated for you. 
+        <br><br>
+        We applied the Recommendation Engines to a dataset of movies to demonstrate how they work, however these engines can be easily applied
+        to any dataset of users and items such as e-commerce sales, social media likes and website activity for advertising 
+        to provide intelligent recommendations
+        <br><br>
+        The Movie Recommendation Engine was trainedusing the <a href="https://grouplens.org/datasets/movielens/">Group Lens Small Dataset</a>.
+        it uses a public dataset of 100,000 real movie ratings by users. 
+        <br><br>
+        All of the source code for the system is available in the following github repos: 
+        <ul>
+          <li><a href="https://github.com/FilipStojanovicski/movie_recommender_api_model">API for Recommendation Models</a></li>
+          <li><a href="https://github.com/FilipStojanovicski/movie-recommender-react-app">Front End React Application</a></li>
+          <li><a href="https://github.com/FilipStojanovicski/movie_recommender_server">Back End Express Server</a></li>
+        </ul>
+      </p>
+    </div>
+
+    <div class="model svd text-container">
+      <h2>Singular Value Decomposition Model (SVD)</h2>
+      <p>The SVD Recommendation Engine Model uses the SVD algorithm as popularized by <a href="https://sifter.org/~simon/journal/20061211.html">Simon Funk during the Netflix Prize</a>
+        . The model was built using the <a href="https://surpriselib.com/">Surprise Python Library</a>. 
+        It learns a set of latent features for each movie and user and converges onto their values using gradient descent. 
+        See this <a href="https://www.youtube.com/watch?v=n3RKsY2H-NE">Youtube Video about Collaborative Filtering</a> for a short explanation of how it works.
+        <br><br>
+        The adjustable parameters for SVD are: </p>
+        <h3>Number of Factors:</h3>
+        <p>The number of factors is the number of latent features the model learns.</p>
+        <h3>Number of Epochs:</h3>
+        <p>The number of epochs is the number of iterations of the SGD procedure we use when training the model.</p>
+        <h3>Popularity Boost:</h3>
+        <p>
+        This is an inverse boost value that provides a boost to the more popular movies. 
+        The boost is the logarithm base of the number of ratings which is then multiplied by the score to boost popularity.
+        Use a popularity boost of 1 for no boosting and 2 for the highest boost. The boosting decreases as 
+        you increase this value above 2. A popularity boost of 10 means that a movie that is 10 times more popular than another 
+        movie will have their score multiplied by a factor of 2.
+      </p>
+    </div>
+
+    <div class="model knn text-container">
+      <h2>User Based K-Nearest Neighbors</h2>
+      <p>The User Based KNN Model is a straightforward K-Nearest Neighbors algorithm that I have written an implementation for from scratch.
+        It works by taking the K Nearest Neighbors to determine the most similar users to you based on the euclidian distance of your 
+        prediction vector. It then takes a distance-weighted mean of their rated movies to determine a predicted rating.
+        <br><br>
+        The adjustable parameters for SVD are: </p>
+        <h3>Number of Neighbors:</h3>
+        <p>The number of most similar users to consider.</p>
+        <h3>Minimum Support:</h3>
+      <p>The minimum number of matching movies a user has to have rated in order to be considered as a neighbor. 
+        The actual minimum support value is taken to be the minimum of the number of movies rated and the supplied minimum support value.
+        If there are no users that match the minimum support condition, we simply return the default recommendations.
+      </p>
+        <h3>Popularity Boost:</h3>
+        <p>
+        This is an inverse boost value that provides a boost to the more popular movies. 
+        The boost is the logarithm base of the number of ratings which is then multiplied by the score to boost popularity.
+        Use a popularity boost of 1 for no boosting and 2 for the highest boost. The boosting decreases as 
+        you increase this value above 2. A popularity boost of 10 means that a movie that is 10 times more popular than another 
+        movie will have their score multiplied by a factor of 2.
+      </p>
+    </div>
+
+    <div class="default-recommendations text-container">
+      <h2>Default Predictions</h2>
+      <p>In rare cases where unexpected behaviour results in the models not being able to generate a predictions we return
+        the default recommendations.
+        If there are no movies rated or the parameters passed are invalid or an unexpected error occurs the model will
+        fallback to the default recommendations. The default predictions are simply the mean ratings of the movies by all users 
+        in the dataset with a default popularity boost of 10.
+      </p>
+    </div>
+  </div>
+  </main>
+</body>
+
+</html>
