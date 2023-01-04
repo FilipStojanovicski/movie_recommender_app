@@ -26,9 +26,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-
 app.use('/api', APIrouter);
 app.use('/movie_recommendation', recommendMovieRouter);
+
+app.get('/howitworks', function(req, res){
+  console.log(req.app.get('env'));
+  res.render('howitworks',{title:"How it Works"});
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,5 +54,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

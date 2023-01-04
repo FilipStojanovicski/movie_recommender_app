@@ -1,10 +1,12 @@
 var mysql = require('mysql');
 
+require('dotenv').config();
+
 var pool = mysql.createPool({
-  host: "127.0.0.1",
-  user: "filip",
-  password: "abc123",
-  database: "movie_recommender",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   connectionLimit: 10,
   supportBigNumbers: true
 });

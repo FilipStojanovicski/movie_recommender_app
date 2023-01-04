@@ -1,0 +1,123 @@
+
+/*==================== BASE ====================*/
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+	margin: 0 0 3rem 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: black;
+	font-weight: 600;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+  color: royalblue;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+#how-it-works{
+  position: relative;
+	min-height: 100vh;
+}
+
+.how-it-works.container{
+    max-width: 768px;
+    margin: auto;
+    padding: 1.5rem;
+}
+
+.how-it-works h1{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.how-it-works > div{
+  margin-top: 2rem;
+}
+
+.how-it-works .credits{
+  margin-top: 0.5rem;
+}
+
+.how-it-works .text-container h2{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: black;
+  font-weight: bold;
+}
+
+.how-it-works .text-container h3{
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: black;
+}
+
+.how-it-works .text-container li{
+  margin: 0.5rem 0;
+}
+
+
+
+.credits .social-icons{
+  display: flex;
+  gap: 1.5rem;
+  margin: 0.5rem 1.5rem;
+}
+
+.credits .social-icon{
+  font-size:1.5rem;
+  color: royalblue;
+}
+
+
+/*==================== MEDIA QUERIES ====================*/
+
+/* For medium devices */
+
+@media screen and (min-width: 768px) {
+  #how-it-works {
+		padding: calc(3rem + 1.5rem) 0 0;
+	}
+	.main{
+		padding: 0 1rem;
+	}
+
+}
+
+/* For large devices */
+@media screen and (min-width: 1024px) {
+  .main {
+		padding: 0;
+	}
+}
