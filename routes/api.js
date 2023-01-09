@@ -31,8 +31,8 @@ router.get('/movies', (req, res, next) => {
 
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
-            console.log("Error in api/movies", error);
-            next(error);
+            console.log("Error in api/movies", err);
+            next(err);
             return;
         }
         else {
@@ -48,8 +48,8 @@ router.get('/genres', (req, res, next) => {
 
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
-            console.log("Error in api/genres", error);
-            next(error);
+            console.log("Error in api/genres", err);
+            next(err);
             return;
         }
         else {
@@ -72,8 +72,8 @@ router.post('/movie_imgs', (req, res, next) => {
 
     db.getSQL(sql_statement, function(err, results) {
         if(err) { 
-            console.log("Error in api/movie_imgs", error);
-            next(error);
+            console.log("Error in api/movie_imgs", err);
+            next(err);
             return;
         }
         else {
